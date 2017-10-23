@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %} {{ user.username }} {% endblock %}
+{% block narLog %} fh5co-active {% endblock %}
+{% block body %}
+    <div id="fh5co-main">
+			<div class="fh5co-narrow-content">
+				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">{{ user.username }}</h2>
+				<div class="row row-bottom-padded-md">
+                    <a href="{% url 'logout' %}">登出</a>
+                    <a href="{% url 'password_change' %}">修改密码</a>
+                    <a href="{% url 'password_reset' %}">忘记密码</a>
+                </div>
+			</div>
+		</div>
+{% endblock %}

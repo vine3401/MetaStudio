@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+    APP——META STUDIO
+{% endblock title %}
+{% block narApp %}
+    fh5co-active
+{% endblock narApp %}
+    {% block body %}
+		<div id="fh5co-main">
+			<div class="fh5co-narrow-content">
+                {% for cate,apps in appList %}
+				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">{{ cate.name }}<small class="badge">{{ cate.app_set.count }}</small></h2>
+				<div class="row row-bottom-padded-md">
+                    {% for app in apps %}
+					<div class="col-md-3 col-sm-6 col-padding text-center animate-box">
+						<a href="{{ app.get_absolute_url }}" class="work image-popup" style="background-image: url({{ app.foreImg.url }});">
+							<div class="desc">
+                                <h3>{{ app.name }}</h3>
+								<span>{{ app.times }} 下载</span>
+							</div>
+						</a>
+					</div>
+                    {% empty %}
+                        暂无APP，敬请期待
+                    {% endfor %}
+				</div>
+                {% empty %}
+                    暂无APP，敬请期待
+                {% endfor %}
+			</div>
+		</div>
+    {% endblock body %}

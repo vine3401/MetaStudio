@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+    首页——META STUDIO
+{% endblock title %}
+{% block narHome %}
+    fh5co-active
+{% endblock narHome %}
+{% block body %}
+		<div id="fh5co-main">
+			<aside id="fh5co-hero" class="js-fullheight">
+				<div class="flexslider js-fullheight">
+					<ul class="slides">
+                    {% for app in apps %}
+				   	<li style="background-image: url({{ app.foreImg.url }});">
+				   		<div class="overlay"></div>
+				   		<div class="container-fluid">
+				   			<div class="row">
+					   			<div class="col-md-8 col-md-offset-2 text-center js-fullheight slider-text">
+					   				<div class="slider-text-inner">
+					   					<h1>{{ app.name }}</h1>
+					   					<h2>{{ app.excrept }}</h2>
+                                        <p>
+                                            <a class="btn btn-primary btn-demo popup-vimeo" href="{% url 'app:downloadApp' app.pk %}" title="点击下载">
+                                                <i class="icon-arrow-down3"></i>
+{#                                                TODO: the implement of this feature -----file download#}
+                                                DownLoad
+                                            </a>
+                                            <a class="btn btn-primary btn-learn" href="{{ app.get_absolute_url }}" title="了解更多">
+                                                learn more<i class="icon-arrow-right3"></i>
+                                            </a>
+                                        </p>
+					   				</div>
+					   			</div>
+					   		</div>
+				   		</div>
+				   	</li>
+                    {% empty %}
+                        暂无APP
+                    {% endfor %}
+				  	</ul>
+			  	</div>
+			</aside>
+
+			<div class="fh5co-narrow-content">
+				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">最新博客</h2>
+				<div class="row row-bottom-padded-md">
+                    {% for post in posts %}
+					<div class="col-padding animate-box" data-animate-effect="fadeInLeft">
+						<div class="blog-entry">
+							<div class="desc">
+								<h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+								<span><small>by {{ post.author }} </small> / <small> {{ post.category }} </small> / <small> <i class="icon-comment"></i> 评论{{ post.blogcomment_set.count }}</small> / <small>阅读{{ post.views }}</small>&nbsp;&nbsp;<small>{{ post.createTime }}</small></span>
+								<p>{{ post.body|truncatechars:54 }}</p>
+								<a href="{{ post.get_absolute_url }}" class="lead pull-right">阅读全文 <i class="icon-arrow-right3"></i></a>
+							</div>
+						</div>
+					</div>
+                    {% empty %}
+                    暂无博客
+                    {% endfor %}
+				</div>
+			</div>
+		</div>
+{% endblock body %}
+    

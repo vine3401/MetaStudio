@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+    博客——META STUDIO
+{% endblock title %}
+{% block narBlog %}
+    fh5co-active
+{% endblock narBlog %}
+    {% block body %}
+		<div id="fh5co-main">
+			<div class="fh5co-narrow-content">
+                <a class="btn btn-primary pull-right" href="{% url 'blog:write' %}">写博客</a>
+                {% for cate,posts in postList %}
+                {% if cate.post_set.count %}
+				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">{{ cate.name }}<small class="badge">{{ cate.post_set.count }}</small></h2>
+				<div class="row row-bottom-padded-md">
+                    {% for post in posts %}
+					<div class="col-padding animate-box" data-animate-effect="fadeInLeft">
+						<div class="blog-entry">
+							<div class="desc">
+								<h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+								<span><small>by {{ post.author }} </small> / <small> {{ post.category }} </small> / <small> <i class="glyphicong lyphicon-comment"></i> 评论{{ post.blogcomment_set.count }}</small> / <small>阅读{{ post.views }}</small>&nbsp;&nbsp;<small>{{ post.createTime }}</small></span>
+								<p>{{ post.body|truncatechars:54}}</p>
+								<a href="{{ post.get_absolute_url }}" class="lead pull-right">阅读全文 <i class="icon-arrow-right3"></i></a>
+							</div>
+						</div>
+					</div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% empty %}
+                    暂无博客
+                {% endfor %}
+			</div>
+		</div>
+    {% endblock body %}
