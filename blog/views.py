@@ -10,8 +10,8 @@ def index(request):
     posts = Post.objects.all().order_by("-createTime")[:5]
     apps = App.objects.all().order_by("-createTime")[:3]
     context = {
-        'posts':posts,
-        'apps':apps,
+        'posts': posts,
+        'apps': apps,
     }
     return render(request, 'home/index.html', context = context)
 
@@ -50,8 +50,8 @@ def detail(request,pk):
 
     context = {
         'post': post,
-        'form':form,
-        'subForm':subForm,
+        'form': form,
+        'subForm': subForm,
         'comments': comments,
     }
 

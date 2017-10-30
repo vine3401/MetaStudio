@@ -4,13 +4,63 @@
 {% block narLog %} fh5co-active {% endblock %}
 {% block body %}
     <div id="fh5co-main">
-			<div class="fh5co-narrow-content">
-				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">{{ user.username }}</h2>
-				<div class="row row-bottom-padded-md">
-                    <a href="{% url 'logout' %}">登出</a>
-                    <a href="{% url 'password_change' %}">修改密码</a>
-                    <a href="{% url 'password_reset' %}">忘记密码</a>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <img class="img-rounded" src="{{ user.headphoto.url }}" width="40px" style="margin-top: 10px"/>
                 </div>
+
+{#               TODO: finish the user page #}
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="{% url 'blog:write' %}" ><span class="h3">写博客</span></a></li>
+                        <li><a href="{% url 'app:uploadApp' %}" ><span class="h3">发布APP</span></a></li>
+                        <li><a href="#" ><span class="h3">消息</span><small class="badge">3</small></a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false"><span class="h3">{{ user.username }}</span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">个人资料</a></li>
+                                <li><a href="{% url 'password_change' %}">修改密码</a></li>
+                                <li><a href="#">设置</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="{% url 'logout' %}">退出登录</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+			<div class="fh5co-narrow-content">
+                <ul class="nav nav-tabs">
+                  <li role="presentation" class="active"><a href="#">Home</a></li>
+                  <li role="presentation"><a href="#">Profile</a></li>
+                  <li role="presentation"><a href="#">Messages</a></li>
+                </ul>
+                <div class="row row-bottom-padded-md">
+                    {% for post in posts %}
+					<div class="col-padding animate-box" data-animate-effect="fadeInLeft">
+						<div class="blog-entry">
+							<div class="desc">
+								<h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+								<span><small> {{ post.category }} </small> / <small> <i class="icon-comment"></i> 评论{{ post.blogcomment_set.count }}</small> / <small>阅读{{ post.views }}</small>&nbsp;&nbsp;<small>{{ post.createTime }}</small></span>
+								<p>{{ post.body|truncatechars:54 }}</p>
+							</div>
+						</div>
+					</div>
+                    {% empty %}
+                    暂无博客
+                    {% endfor %}
+				</div>
 			</div>
-		</div>
+    </div>
 {% endblock %}

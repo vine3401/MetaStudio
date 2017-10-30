@@ -9,6 +9,7 @@
     {% block body %}
 		<div id="fh5co-main">
 			<div class="fh5co-narrow-content">
+                <a class="btn btn-primary pull-right" href="{% url 'app:uploadApp' %}">上传APP</a>
                 {% for cate,apps in appList %}
 				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">{{ cate.name }}<small class="badge">{{ cate.app_set.count }}</small></h2>
 				<div class="row row-bottom-padded-md">

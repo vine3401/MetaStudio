@@ -1,10 +1,10 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404, redirect
 from .models import AppCategory, App
 from comment.forms import AppCommentForm,SubACommentForm
 from comment.models import SubAComment
 from django.http import StreamingHttpResponse
-
-import os, tempfile, zipfile
+from .forms import UploadAppForm
+from django.core.files.base import ContentFile
 
 # Create your views here.
 
@@ -17,7 +17,7 @@ def portfllio(request):
         temp = (cate,apps)
         appList.append(temp)
 
-    return render(request, 'home/portfolio.html', context = {'appList':appList})
+    return render(request, 'home/portfolio.html', context={'appList': appList})
 
 
 def appInfo(request,pk):
@@ -54,6 +54,7 @@ def downloadApp(request, pk):
                     break
 
     url = str(appObj.app.url)
+    print(appObj)
     name = str(appObj.app)
     response = StreamingHttpResponse(file_iterator(url))
     response['Content-Type'] = 'application/octet-stream'
@@ -63,5 +64,25 @@ def downloadApp(request, pk):
     return response
 
 
+
+
 def uploadApp(request):
-    pass
+    categories = AppCategory.objects.all()
+
+    if request.method == 'POST':
+        form = UploadAppForm(request.POST)
+
+        application = request.FILES['app']
+
+        if form.is_valid():
+            app = form.save(commit=False)
+            app.app = application
+            if 'icon' not in request.POST:
+                app.icon = request.FILES['icon']
+            if 'foreImg' not in request.POST:
+                app.foreImg = request.FILES['foreImg']
+            app.save()
+            return redirect('/')
+    else:
+        form = UploadAppForm()
+    return render(request, 'app/upload.html', context={'form': form, 'categories': categories})
