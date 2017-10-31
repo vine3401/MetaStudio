@@ -10,13 +10,10 @@ from .models import BlogComment, AppComment, SubBComment,SubAComment
 def post_comment(request,post_pk):
 
     post = get_object_or_404(Post, pk=post_pk)
-
-    user =  get_object_or_404(User,pk=request.user.pk)
+    user = get_object_or_404(User,pk=request.user.pk)
 
     if request.method == 'POST':
-
         form = BlogCommentForm(request.POST)
-
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = post
@@ -32,7 +29,6 @@ def post_comment(request,post_pk):
                 subComment = SubBComment.objects.filter(parentComment=comment.pk).order_by("createTime")
                 temp = (comment, subComment)
                 comments.append(temp)
-
             context = {'post': post,
                        'form': form,
                        'subForm':subForm,

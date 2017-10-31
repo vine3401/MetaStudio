@@ -54,7 +54,6 @@ def downloadApp(request, pk):
                     break
 
     url = str(appObj.app.url)
-    print(appObj)
     name = str(appObj.app)
     response = StreamingHttpResponse(file_iterator(url))
     response['Content-Type'] = 'application/octet-stream'
@@ -64,14 +63,11 @@ def downloadApp(request, pk):
     return response
 
 
-
-
 def uploadApp(request):
     categories = AppCategory.objects.all()
 
     if request.method == 'POST':
         form = UploadAppForm(request.POST)
-
         application = request.FILES['app']
 
         if form.is_valid():
@@ -86,3 +82,8 @@ def uploadApp(request):
     else:
         form = UploadAppForm()
     return render(request, 'app/upload.html', context={'form': form, 'categories': categories})
+
+
+def deleteApp(request, pk):
+    App.objects.filter(pk=pk).delete()
+    return redirect("/user/")

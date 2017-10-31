@@ -9,7 +9,6 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">APP上传</div>
                     <div class="panel-body">
-{#                        TODO: finish the feature-upload Application#}
                         <form class="form" action="{% url 'app:uploadApp' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             {{ form.non_field_errors }}

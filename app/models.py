@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from account.models import User
-# Create your models here.
+
 class AppCategory(models.Model):
     name = models.CharField(max_length=100)
 

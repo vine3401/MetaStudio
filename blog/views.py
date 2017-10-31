@@ -72,3 +72,8 @@ def write(request):
         form = PostForm()
 
     return render(request, 'blog/write.html', context={'form': form, 'categories': categories, 'tags': tags})
+
+
+def delete(request, pk):
+    Post.objects.filter(pk=pk).delete()
+    return redirect("/user/")

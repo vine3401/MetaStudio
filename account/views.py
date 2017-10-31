@@ -2,13 +2,18 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
 from .forms import RegisterForm
 from blog.models import Post, Category
-
+from app.models import App
 # Create your views here.
 
 
 def userInfo(request):
     posts = Post.objects.filter(author=request.user.pk).order_by("-createTime")
-    return render(request, 'account/user.html',context={'posts': posts})
+    apps = App.objects.filter(author=request.user.pk).order_by("-createTime")
+    context = {
+        'posts': posts,
+        'apps': apps
+    }
+    return render(request, 'account/user.html',context=context)
 
 
 def register(request):
