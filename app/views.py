@@ -87,3 +87,25 @@ def uploadApp(request):
 def deleteApp(request, pk):
     App.objects.filter(pk=pk).delete()
     return redirect("/user/")
+
+def editApp(request, pk):
+    categories = AppCategory.objects.all()
+    app = get_object_or_404(App, pk=pk)
+
+    if request.method == 'POST':
+        content = request.POST
+        app.name = content['name']
+        app.version = content['version']
+        app.category.pk = content['category']
+        app.inTro = content['inTro']
+        if 'icon' not in request.POST:
+            app.icon = request.FILES['icon']
+        if 'foreImg' not in request.POST:
+            app.foreImg = request.FILES['foreImg']
+        if 'app' not in request.POST:
+            app.app = request.FILES['app']
+        app.save()
+        return redirect("/user/")
+    context = {'categories': categories,'app': app}
+
+    return render(request, 'app/edit.html',context=context)

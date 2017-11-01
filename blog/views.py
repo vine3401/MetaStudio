@@ -63,9 +63,10 @@ def write(request):
     tags = Tag.objects.all()
 
     if request.method == "POST":
+        print(request.POST)
         form = PostForm(request.POST)
+        print(form)
         if form.is_valid():
-
             form.save()
             return redirect("/")
     else:
@@ -77,3 +78,23 @@ def write(request):
 def delete(request, pk):
     Post.objects.filter(pk=pk).delete()
     return redirect("/user/")
+
+
+def edit(request, pk):
+    categories = Category.objects.all()
+    tags = Tag.objects.all()
+    post=get_object_or_404(Post, pk=pk)
+
+    if request.method == 'POST':
+        content = request.POST
+        print(content)
+        post.title = content['title']
+        post.category.pk = content['category']
+        post.tag.pk = content['tag']
+        post.body = content['body']
+        post.save()
+        return redirect("/user")
+
+    context = {'post': post, 'categories': categories, 'tags': tags}
+
+    return render(request, 'blog/edit.html', context=context)

@@ -16,6 +16,7 @@ urlpatterns = [
     url(r'^post/(?P<pk>[0-9]+)', views.detail, name='detail'),
     url(r'^media/(?P<path>.*)', serve, {"document_root": MEDIA_ROOT}),
     url(r'^write/', views.write, name='write'),
-    url(r'^post/delete/(?P<pk>[0-9]+)', views.delete, name='delete')
+    url(r'^post/delete/(?P<pk>[0-9]+)', views.delete, name='delete'),
+    url(r'^post/edit/(?P<pk>[0-9]+)', views.edit, name='edit'),
     # url(r'^upload', views.uploadImage, name="UploadImage"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

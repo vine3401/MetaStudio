@@ -11,4 +11,5 @@ urlpatterns=[
     url(r'^download/app/(?P<pk>[0-9]+)', views.downloadApp, name='downloadApp'),
     url(r'^upload/app/$', views.uploadApp, name='uploadApp'),
     url(r'^delete/App/(?P<pk>[0-9]+)', views.deleteApp, name='deleteApp'),
+    url(r'^edit/App/(?P<pk>[0-9]+)', views.editApp, name='editApp'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

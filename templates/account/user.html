@@ -60,7 +60,7 @@
                                     <div class="blog-entry">
                                         <div class="desc">
                                             <a class="btn btn-primary pull-right" href="{% url 'blog:delete' post.pk %}">删除</a>
-                                            <a class="btn btn-primary pull-right" href="">修改</a>
+                                            <a class="btn btn-primary pull-right" href="{% url 'blog:edit' post.pk %}">修改</a>
                                             <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
                                             <span class="h4"><small> {{ post.category }} </small> / <small> <i
                                                     class="icon-comment"></i> 评论{{ post.blogcomment_set.count }}</small> / <small>阅读{{ post.views }}</small>&nbsp;&nbsp;<small>{{ post.createTime }}</small></span>
@@ -84,7 +84,7 @@
                                             </div>
                                             <div style="margin-left:140px;">
                                                 <a class="btn btn-primary pull-right" href="{% url 'app:deleteApp' app.pk %}">删除</a>
-                                                <a class="btn btn-primary pull-right" href="#">修改</a>
+                                                <a class="btn btn-primary pull-right" href="{% url 'app:editApp' app.pk %}">修改</a>
                                                 <a class="h3" href="{{ app.get_absolute_url }}">{{ app.name }}</a>
                                                 <span class="h4">下载量：{{ app.times }} / 分类：{{ app.category }}</span>
                                             </div>
