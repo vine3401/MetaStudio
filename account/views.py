@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
+from .models import User
 from .forms import RegisterForm
 from blog.models import Post, Category
 from app.models import App
-# Create your views here.
 
 
 def userInfo(request):
@@ -29,3 +29,12 @@ def register(request):
     else:
         form = RegisterForm()
     return render(request, 'account/register.html', context={'form': form, 'next': redirect_to})
+
+
+def infoChange(request):
+    user = get_object_or_404(User, pk=request.user.pk)
+    if request.method == 'POST':
+        user.headphoto = request.FILES['headphoto']
+        user.save()
+        return redirect("/user/")
+    return render(request, 'account/userInfo.html',context={})

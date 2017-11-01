@@ -4,6 +4,7 @@ from .forms import BlogCommentForm, AppCommentForm, SubBCommentForm, SubAComment
 from app.models import App
 from account.models import User
 from .models import BlogComment, AppComment, SubBComment,SubAComment
+from account.models import MessageApp,MessageBlog
 # Create your views here.
 
 
@@ -19,6 +20,7 @@ def post_comment(request,post_pk):
             comment.post = post
             comment.user = user
             comment.save()
+            # MessageBlog.objects.create(mes=request.POST['text']', user=user,toUser='',post=post)
             return redirect(post)
         else:
             c = post.blogcomment_set.all()
@@ -31,7 +33,7 @@ def post_comment(request,post_pk):
                 comments.append(temp)
             context = {'post': post,
                        'form': form,
-                       'subForm':subForm,
+                       'subForm': subForm,
                        'comments': comments,
                        }
             return render(request, 'blog/detail.html', context=context)

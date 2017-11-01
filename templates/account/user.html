@@ -21,16 +21,16 @@
                     <ul class="nav navbar-nav">
                         <li><a href="{% url 'blog:write' %}" ><span class="h3">写博客</span></a></li>
                         <li><a href="{% url 'app:uploadApp' %}" ><span class="h3">发布APP</span></a></li>
-                        <li><a href="#" ><span class="h3">消息</span><small class="badge">3</small></a></li>
+{#                        <li><a href="#" ><span class="h3">消息</span><small class="badge">3</small></a></li>#}
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-haspopup="true" aria-expanded="false"><span class="h3">{{ user.username }}</span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">个人资料</a></li>
+                                <li><a href="{% url 'account:infoChange' %}">修改资料</a></li>
                                 <li><a href="{% url 'password_change' %}">修改密码</a></li>
-                                <li><a href="#">设置</a></li>
+{#                                <li><a href="#">设置</a></li>#}
                                 <li role="separator" class="divider"></li>
                                 <li><a href="{% url 'logout' %}">退出登录</a></li>
                             </ul>
@@ -48,9 +48,9 @@
                     <li role="presentation">
                         <a href="#app" aria-controls="app" role="tab" data-toggle="tab">我的APP</a>
                     </li>
-                    <li role="presentation">
-                        <a href="#extra" aria-controls="extra" role="tab" data-toggle="tab">我的收藏</a>
-                    </li>
+{#                    <li role="presentation">#}
+{#                        <a href="#extra" aria-controls="extra" role="tab" data-toggle="tab">我的收藏</a>#}
+{#                    </li>#}
                 </ul>
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="blog">
@@ -60,7 +60,7 @@
                                     <div class="blog-entry">
                                         <div class="desc">
                                             <a class="btn btn-primary pull-right" href="{% url 'blog:delete' post.pk %}">删除</a>
-                                            <a class="btn btn-primary pull-right" href="#">修改</a>
+                                            <a class="btn btn-primary pull-right" href="">修改</a>
                                             <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
                                             <span class="h4"><small> {{ post.category }} </small> / <small> <i
                                                     class="icon-comment"></i> 评论{{ post.blogcomment_set.count }}</small> / <small>阅读{{ post.views }}</small>&nbsp;&nbsp;<small>{{ post.createTime }}</small></span>
@@ -96,7 +96,7 @@
                             {% endfor %}
                         </div>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="extra">我的收藏</div>
+{#                    <div role="tabpanel" class="tab-pane" id="extra">我的收藏</div>#}
                 </div>
             </div>
         </div>

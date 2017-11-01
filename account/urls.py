@@ -9,4 +9,5 @@ app_name = 'account'
 urlpatterns=[
     url(r'^register/$', views.register, name='register'),
     url(r'^user/$',views.userInfo, name="userInfo"),
+    url(r'^userInfo/$', views.infoChange, name='infoChange'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
