@@ -21,7 +21,7 @@
 					   					<h1>{{ app.name }}</h1>
 					   					<h2>{{ app.excrept }}</h2>
                                         <p>
-                                            <a class="btn btn-primary btn-demo popup-vimeo" href="{% url 'app:downloadApp' app.pk %}" title="点击下载">
+                                            <a class="btn btn-primary btn-demo popup-vimeo" href="{{ app.app.url }}" title="点击下载">
                                                 <i class="icon-arrow-down3"></i>
                                                 DownLoad
                                             </a>

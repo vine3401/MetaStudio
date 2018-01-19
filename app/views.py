@@ -52,7 +52,6 @@ def downloadApp(request, pk):
                     yield c
                 else:
                     break
-
     url = str(appObj.app.url)
     name = str(appObj.app)
     response = StreamingHttpResponse(file_iterator(url))

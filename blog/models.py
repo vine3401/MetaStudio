@@ -22,7 +22,7 @@ class Post(models.Model):
     modifiedTime = models.DateTimeField(auto_now_add=True)
     body = models.TextField()
     excerpt = models.CharField(max_length=200, blank = True)
-    views = models.PositiveIntegerField(default=0) #该字段的值只允许为正整数或者0
+    views = models.PositiveIntegerField(default=0)
 
     category = models.ForeignKey(Category)
     tag = models.ManyToManyField(Tag)

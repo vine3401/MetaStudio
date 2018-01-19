@@ -64,12 +64,12 @@
 					<li class="{% block narBlog %}{% endblock narBlog%}">
                         <a href="{% url 'blog:blog' %}">博客</a>
                     </li>
-					<li class="{% block narAbout %}{% endblock narAbout%}">
-                        <a href="{% url 'blog:about' %}">关于</a>
-                    </li>
-					<li class="{% block narContact %}{% endblock narContact%}">
-                        <a href="{% url 'blog:contact' %}">联系</a>
-                    </li>
+{#					<li class="{% block narAbout %}{% endblock narAbout%}">#}
+{#                        <a href="{% url 'blog:about' %}">关于</a>#}
+{#                    </li>#}
+{#					<li class="{% block narContact %}{% endblock narContact%}">#}
+{#                        <a href="{% url 'blog:contact' %}">联系</a>#}
+{#                    </li>#}
                     <li class="{% block narLog %}{% endblock narLog%}">
                         {% if user.is_authenticated %}
                             <a href="{% url 'account:userInfo' %}">{{ user.username }}</a>
