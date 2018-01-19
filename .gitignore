@@ -47,3 +47,6 @@ docs/_build/
 target/
 
 media/
+
+.vscode/
+.idea/
