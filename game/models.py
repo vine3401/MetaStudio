@@ -2,14 +2,14 @@ from django.db import models
 from django.urls import reverse
 from account.models import User
 
-class AppCategory(models.Model):
+class GameCategory(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
 
 
-class App(models.Model):
+class Game(models.Model):
 
     name = models.CharField(max_length=100)
     createTime = models.DateTimeField(auto_now_add=True)
@@ -17,11 +17,11 @@ class App(models.Model):
     times = models.PositiveIntegerField(default=0)
     icon = models.ImageField(default='default/icon.jpg')
     version = models.CharField(max_length=30)
-    app = models.FileField()
+    game = models.FileField()
     inTro = models.TextField(blank=True)
     foreImg = models.ImageField(default='default/foreImg.jpg')
 
-    category = models.ForeignKey(AppCategory)
+    category = models.ForeignKey(GameCategory)
     author = models.ForeignKey(User)
 
     def __str__(self):

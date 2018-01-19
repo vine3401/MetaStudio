@@ -12,20 +12,20 @@
 				<div class="flexslider js-fullheight">
 					<ul class="slides">
                     {% for app in apps %}
-				   	<li style="background-image: url({{ app.foreImg.url }});">
+				   	<li style="background-image: url({{ game.foreImg.url }});">
 				   		<div class="overlay"></div>
 				   		<div class="container-fluid">
 				   			<div class="row">
 					   			<div class="col-md-8 col-md-offset-2 text-center js-fullheight slider-text">
 					   				<div class="slider-text-inner">
-					   					<h1>{{ app.name }}</h1>
-					   					<h2>{{ app.excrept }}</h2>
+					   					<h1>{{ game.name }}</h1>
+					   					<h2>{{ game.excrept }}</h2>
                                         <p>
-                                            <a class="btn btn-primary btn-demo popup-vimeo" href="{{ app.app.url }}" title="点击下载">
+                                            <a class="btn btn-primary btn-demo popup-vimeo" href="{{ game.game.url }}" title="点击下载">
                                                 <i class="icon-arrow-down3"></i>
                                                 DownLoad
                                             </a>
-                                            <a class="btn btn-primary btn-learn" href="{{ app.get_absolute_url }}" title="了解更多">
+                                            <a class="btn btn-primary btn-learn" href="{{ game.get_absolute_url }}" title="了解更多">
                                                 learn more<i class="icon-arrow-right3"></i>
                                             </a>
                                         </p>
@@ -35,7 +35,7 @@
 				   		</div>
 				   	</li>
                     {% empty %}
-                        暂无APP
+                        暂无游戏
                     {% endfor %}
 				  	</ul>
 			  	</div>

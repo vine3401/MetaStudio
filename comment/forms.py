@@ -1,10 +1,10 @@
 from django import forms
-from .models import BlogComment, AppComment, SubBComment, SubAComment
+from .models import BlogComment, GameComment, SubBComment, SubGComment
 
 
-class AppCommentForm(forms.ModelForm):
+class GameCommentForm(forms.ModelForm):
     class Meta:
-        model = AppComment
+        model = GameComment
         fields = ['text']
 
 
@@ -20,7 +20,7 @@ class SubBCommentForm(forms.ModelForm):
         fields = ['text', 'user', 'toUser']
 
 
-class SubACommentForm(forms.ModelForm):
+class SubGCommentForm(forms.ModelForm):
     class Meta:
-        model = SubAComment
+        model = SubGComment
         fields = ['text', 'user', 'toUser']

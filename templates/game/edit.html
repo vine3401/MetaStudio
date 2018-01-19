@@ -1,20 +1,20 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block title %}
-    上传APP——META STUDIO
+    修改Game——META STUDIO
 {% endblock title %}
 {% block body %}
 		<div id="fh5co-main">
 			<div class="fh5co-narrow-content">
                 <div class="panel panel-default">
-                    <div class="panel-heading">APP上传</div>
+                    <div class="panel-heading">Game上传</div>
                     <div class="panel-body">
-                        <form class="form" action="{% url 'app:uploadApp' %}" method="post" enctype="multipart/form-data">
+                        <form class="form" action="{% url 'game:editGame' game.pk %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             {{ form.non_field_errors }}
                             <div class="form-group">
                                 <label for="title" class="sr-only">APP名称(必填)</label>
-                                <input type="text" name="name" id="title" placeholder="APP名称(必填)" class="form-control" maxlength="100" required>
+                                <input type="text" name="name" id="title" value="{{ game.name }}" placeholder="游戏名称(必填)" class="form-control" maxlength="100" required>
                                 {{ form.title.errors }}
                                 {% if form.title.help_text %}
                                     {{ form.title.help_text|safe }}
@@ -22,7 +22,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="version" class="sr-only">版本(必填)</label>
-                                <input type="text" name="version" id="version" placeholder="版本(必填)" class="form-control" maxlength="100" required>
+                                <input type="text" name="version" id="version" value="{{ game.version }}" placeholder="版本(必填)" class="form-control" maxlength="100" required>
                                 {{ form.title.errors }}
                                 {% if form.title.help_text %}
                                     {{ form.title.help_text|safe }}
@@ -42,7 +42,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="body" class="sr-only"></label>
-                                <input  name="inTro" id="body" class="form-control" placeholder="简介(必填)" required/>
+                                <input  name="inTro" id="body" value="{{ game.inTro }}" class="form-control" placeholder="简介(必填)" required/>
                                 {{ form.inTro.errors }}
                                 {% if form.inTro.help_text %}
                                     {{ form.inTro.help_text|safe }}
@@ -50,17 +50,20 @@
                             </div>
                             <input type="hidden" value="{{ user.pk }}" name="author">
                             <div class="form-group">
-                                <label for="app">APP(必填)</label>
-                                <input type="file" name="app" id="app" required/>
+                                <label for="game">Game(必填)&nbsp;&nbsp;</label>
+                                <span class="h4">目前：{{ game.game }}</span>
+                                <input type="file" name="game" id="game"/>
                             </div>
                             <div class="form-group">
-                                <label for="icon" class="">APP图标</label>
-                                <input type="file" name="icon" id="icon"/>
-                                <label for="foreImg" class="">APP展示图片</label>
-                                <input type="file" name="foreImg" id="foreImg"/>
+                                <label for="icon" class="">Game图标&nbsp;&nbsp;</label>
+                                <span class="h4">目前：{{ game.icon }}</span>
+                                <input type="file" name="icon" id="icon" value="{{ game.icon }}"/>
+                                <label for="foreImg" class="">游戏展示图片&nbsp;&nbsp;</label>
+                                <span class="h4">目前：{{ game.foreImg }}</span>
+                                <input type="file" name="foreImg" id="foreImg" value="{{ game.foreImg }}"/>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-default form-control">上传APP</button>
+                                <button type="submit" class="btn btn-default form-control">确认修改</button>
                             </div>
                         </form>
                     </div>

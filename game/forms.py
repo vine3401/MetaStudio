@@ -1,8 +1,7 @@
 from django import forms
-from .models import App, AppCategory
+from .models import Game, GameCategory
 
-
-class UploadAppForm(forms.ModelForm):
+class UploadGameForm(forms.ModelForm):
     class Meta:
-        model = App
+        model = Game
         fields = ['name', 'version', 'inTro', 'category', 'author']

@@ -17,36 +17,31 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name='Game',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Post',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=100)),
                 ('createTime', models.DateTimeField(auto_now_add=True)),
-                ('modifiedTime', models.DateTimeField(auto_now_add=True)),
-                ('body', models.TextField()),
-                ('excerpt', models.CharField(blank=True, max_length=200)),
-                ('views', models.PositiveIntegerField(default=0)),
+                ('excrept', models.TextField(blank=True, max_length=300)),
+                ('times', models.PositiveIntegerField(default=0)),
+                ('icon', models.ImageField(default='default/icon.jpg', upload_to='')),
+                ('version', models.CharField(max_length=30)),
+                ('game', models.FileField(upload_to='')),
+                ('inTro', models.TextField(blank=True)),
+                ('foreImg', models.ImageField(default='default/foreImg.jpg', upload_to='')),
                 ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='blog.Category')),
             ],
         ),
         migrations.CreateModel(
-            name='Tag',
+            name='GameCategory',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
             ],
         ),
         migrations.AddField(
-            model_name='post',
-            name='tag',
-            field=models.ManyToManyField(to='blog.Tag'),
+            model_name='game',
+            name='category',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='game.GameCategory'),
         ),
     ]

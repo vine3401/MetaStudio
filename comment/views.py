@@ -1,10 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from blog.models import Post
-from .forms import BlogCommentForm, AppCommentForm, SubBCommentForm, SubACommentForm
-from app.models import App
+from .forms import BlogCommentForm, GameCommentForm, SubBCommentForm, SubGCommentForm
+from game.models import Game
 from account.models import User
-from .models import BlogComment, AppComment, SubBComment,SubAComment
-from account.models import MessageApp,MessageBlog
+from .models import BlogComment, GameComment, SubBComment,SubGComment
+from account.models import MessageGame,MessageBlog
 # Create your views here.
 
 
@@ -72,67 +72,65 @@ def sub_post_comment(request, post_pk, comment_pk):
     return redirect(post)
 
 
-def app_comment(request, app_pk):
+def game_comment(request, game_pk):
 
-    app = get_object_or_404(App, pk=app_pk)
+    game = get_object_or_404(Game, pk=game_pk)
     user = get_object_or_404(User, pk=request.user.pk)
 
     if request.method == 'POST':
-        form = AppCommentForm(request.POST)
+        form = GameCommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
-            comment.app = app
+            comment.game = game
             comment.user = user
             comment.save()
-            return redirect(app)
+            return redirect(game)
         else:
-            c = app.appcomment_set.all()
-            form = AppCommentForm()
-            subForm = SubACommentForm()
+            c = game.gamecomment_set.all()
+            form = GameCommentForm()
+            subForm = SubGCommentForm()
             comments = []
             for comment in c:
-                subComment = SubAComment.objects.filter(parentComment=comment.pk).order_by("createTime")
+                subComment = SubGComment.objects.filter(parentComment=comment.pk).order_by("createTime")
                 temp = (comment, subComment)
                 comments.append(temp)
 
-            context = {'app': app,
+            context = {'game': game,
                        'form': form,
                        'subForm': subForm,
                        'comments': comments,
                        }
-            return render(request, 'app/app.html', context=context)
-    return redirect(app)
+            return render(request, 'game/game.html', context=context)
+    return redirect(game)
 
 
-def sub_app_comment(request, app_pk, comment_pk):
+def sub_game_comment(request, game_pk, comment_pk):
 
-    app = get_object_or_404(App, pk=app_pk)
-    parent = get_object_or_404(AppComment, pk=comment_pk)
+    game = get_object_or_404(Game, pk=game_pk)
+    parent = get_object_or_404(GameComment, pk=comment_pk)
 
     if request.method == 'POST':
-        form = SubACommentForm(request.POST)
+        form = SubGCommentForm(request.POST)
         if form.is_valid():
             subComment = form.save(commit=False)
             subComment.parentComment = parent
             subComment.save()
-            print("this")
-            return redirect(app)
+            return redirect(game)
         else:
-            print("this")
-            form = AppCommentForm()
-            subForm = SubACommentForm()
-            c = app.appcomment_set.all()
+            form = GameCommentForm()
+            subForm = SubGCommentForm()
+            c = game.gamecomment_set.all()
             comments = []
             for comment in c:
-                subComment = SubAComment.objects.filter(parentComment=comment.pk).order_by("createTime")
+                subComment = SubGComment.objects.filter(parentComment=comment.pk).order_by("createTime")
                 temp = (comment, subComment)
                 comments.append(temp)
 
-            context = {'app': app,
+            context = {'game': game,
                        'form': form,
                        'subForm': subForm,
                        'comments': comments,
                        }
-            return render(request, 'app/app.html', context=context)
+            return render(request, 'game/game.html', context=context)
 
-    return redirect(app)
+    return redirect(game)

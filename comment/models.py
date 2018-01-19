@@ -28,24 +28,24 @@ class SubBComment(models.Model):
         return self.text[:20]
 
 
-class AppComment(models.Model):
+class GameComment(models.Model):
 
     text = models.TextField()
     createTime = models.DateTimeField(auto_now_add=True)
 
-    app = models.ForeignKey("app.App")
+    game = models.ForeignKey("game.Game")
     user = models.ForeignKey("account.User")
 
     def __str__(self):
         return self.text[:20]
 
 
-class SubAComment(models.Model):
+class SubGComment(models.Model):
 
     text = models.TextField()
     createTime = models.DateTimeField(auto_now_add=True)
 
-    parentComment = models.ForeignKey("AppComment")
+    parentComment = models.ForeignKey("GameComment")
     user = models.ForeignKey("account.User", related_name="member")
     toUser = models.ForeignKey("account.User", related_name="toMember")
 

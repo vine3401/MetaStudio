@@ -3,15 +3,15 @@ from django.contrib import auth
 from .models import User
 from .forms import RegisterForm
 from blog.models import Post, Category
-from app.models import App
+from game.models import Game
 
 
 def userInfo(request):
     posts = Post.objects.filter(author=request.user.pk).order_by("-createTime")
-    apps = App.objects.filter(author=request.user.pk).order_by("-createTime")
+    games = Game.objects.filter(author=request.user.pk).order_by("-createTime")
     context = {
         'posts': posts,
-        'apps': apps
+        'games': games
     }
     return render(request, 'account/user.html',context=context)
 

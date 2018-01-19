@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block title %}
-    APP详情——META STUDIO
+    游戏详情——META STUDIO
 {% endblock title %}
     {% block body %}
 		<div id="fh5co-main">
@@ -10,44 +10,44 @@
                     <div class="panel-heading">APP介绍</div>
                     <div class="panel-body row">
                         <div class="col-md-3">
-                            <img class="img-rounded" src="{{ app.icon.url }}" width="200" height="200">
+                            <img class="img-rounded" src="{{ game.icon.url }}" width="200" height="200">
                             <br>
                             <br>
-                            <a class="btn btn-primary btn-learn" href="{{ app.app.url }}" title="点击下载">
+                            <a class="btn btn-primary btn-learn" href="{{ game.game.url }}" title="点击下载">
                                 <i class="icon-arrow-down3"></i>
                                 DownLoad
                             </a>
                         </div>
                         <div class="col-md-9">
-                            <h3>{{ app.name }}</h3>
+                            <h3>{{ game.name }}</h3>
                             <div class="row">
                                 <table class="table table-striped">
                                 <tr>
-                                    <td>APP名称: </td>
-                                    <td>{{ app.name }}</td>
+                                    <td>游戏名称: </td>
+                                    <td>{{ game.name }}</td>
                                     <td>分类: </td>
-                                    <td>{{ app.category }}</td>
+                                    <td>{{ game.category }}</td>
                                 </tr>
                                 <tr>
                                     <td>发行版本: </td>
-                                    <td>{{ app.version }}</td>
+                                    <td>{{ game.version }}</td>
                                     <td>发布时间:</td>
-                                    <td>{{ app.createTime.year }}年{{ app.createTime.month}}月{{ app.createTime.day }}日</td>
+                                    <td>{{ game.createTime.year }}年{{ game.createTime.month}}月{{ game.createTime.day }}日</td>
                                 </tr>
                                 <tr>
                                     <td>大小：</td>
-                                    <td>{{ app.app.size }}字节</td>
+                                    <td>{{ game.game.size }}字节</td>
                                     <td>下载量: </td>
-                                    <td>{{ app.times }} 次</td>
+                                    <td>{{ game.times }} 次</td>
                                 </tr>
                             </table>
-                            <span>{{ app.excrept }}</span>
+                            <span>{{ game.excrept }}</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="panel panel-default">
-                    <div class="panel-heading">APP详情</div>
+                    <div class="panel-heading">游戏详情</div>
                     <div class="panel-body">
 {#                        <video controls class="center-block" width="600" height="300">#}
 {#                            <source src="{{ MEDIA_URL }}{{ app.video }}">#}
@@ -55,7 +55,7 @@
 {#                        </video>#}
 {#                        <hr>#}
                         <p>
-                            {{ app.inTro }}
+                            {{ game.inTro }}
                         </p>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                     <div class="panel-heading">发表评论</div>
                     <div class="panel-body">
                         {% if user.is_authenticated %}
-                        <form method="post" action="{% url 'comment:app_comment' app.pk %}">
+                        <form method="post" action="{% url 'comment:game_comment' game.pk %}">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 form-group">
@@ -85,7 +85,7 @@
                     </div>
                 </div>
                 <div class="panel panel-default">
-                    <div class="panel-heading">APP评价<small class="badge">{{ app.appcomment_set.count }}</small></div>
+                    <div class="panel-heading">游戏评价<small class="badge">{{ game.gamecomment_set.count }}</small></div>
                     <div class="panel-body">
                         <ul class="media-list">
                             {% for comment,subComment in comments %}
@@ -106,7 +106,7 @@
                                     <div>
                                         <div class="collapse" id="comment{{ comment.pk }}">
                                           <div class="well">
-                                              <form method="post" action="{% url 'comment:sub_app_comment' app.pk comment.pk%}">
+                                              <form method="post" action="{% url 'comment:sub_game_comment' game.pk comment.pk%}">
                                                 {% csrf_token %}
                                                 <div class="row">
                                                     <div class="col-md-12 col-sm-12 form-group">
@@ -151,7 +151,7 @@
                                                 <div>
                                                     <div class="collapse" id="collapse{{ sub.pk }}">
                                                       <div class="well">
-                                                          <form method="post" action="{% url 'comment:sub_app_comment' app.pk comment.pk %}">
+                                                          <form method="post" action="{% url 'comment:sub_game_comment' game.pk comment.pk %}">
                                                             {% csrf_token %}
                                                             <div class="row">
                                                                 <div class="col-md-12 col-sm-12 form-group">

@@ -1,17 +1,16 @@
 from django.shortcuts import render,get_object_or_404, redirect
 from .models import Category, Tag, Post
-from app.models import AppCategory, App
+from game.models import GameCategory, Game
 from comment.forms import BlogCommentForm,SubBCommentForm
 from comment.models import BlogComment,SubBComment
 from .forms import PostForm
 
-
 def index(request):
     posts = Post.objects.all().order_by("-createTime")[:5]
-    apps = App.objects.all().order_by("-createTime")[:3]
+    games = Game.objects.all().order_by("-createTime")[:3]
     context = {
         'posts': posts,
-        'apps': apps,
+        'game': games,
     }
     return render(request, 'home/index.html', context = context)
 

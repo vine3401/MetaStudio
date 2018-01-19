@@ -9,13 +9,13 @@ class User(AbstractUser):
         pass
 
 
-class MessageApp(models.Model):
+class MessageGame(models.Model):
 
     mes = models.TextField()
     createTime = models.DateTimeField(auto_now_add=True)
     isRead = models.BooleanField(default=False)
 
-    app = models.ForeignKey("app.App")
+    game = models.ForeignKey("game.Game")
     user = models.ForeignKey("User", related_name="user_app")
     toUser = models.ForeignKey("User", related_name="toUser_app")
 

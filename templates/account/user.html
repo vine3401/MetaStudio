@@ -20,7 +20,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li><a href="{% url 'blog:write' %}" ><span class="h3">写博客</span></a></li>
-                        <li><a href="{% url 'app:uploadApp' %}" ><span class="h3">发布APP</span></a></li>
+                        <li><a href="{% url 'game:uploadGame' %}" ><span class="h3">发布Game</span></a></li>
 {#                        <li><a href="#" ><span class="h3">消息</span><small class="badge">3</small></a></li>#}
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -46,7 +46,7 @@
                         <a href="#blog" aria-controls="blog" role="tab" data-toggle="tab">我的博客</a>
                     </li>
                     <li role="presentation">
-                        <a href="#app" aria-controls="app" role="tab" data-toggle="tab">我的APP</a>
+                        <a href="#game" aria-controls="game" role="tab" data-toggle="tab">我的游戏</a>
                     </li>
 {#                    <li role="presentation">#}
 {#                        <a href="#extra" aria-controls="extra" role="tab" data-toggle="tab">我的收藏</a>#}
@@ -80,19 +80,19 @@
                                     <div class="blog-entry">
                                         <div class="desc row">
                                             <div class="col-md-1">
-                                                <img class="img-rounded" src="{{ app.icon.url }}" width="80px" height="80px">
+                                                <img class="img-rounded" src="{{ game.icon.url }}" width="80px" height="80px">
                                             </div>
                                             <div style="margin-left:140px;">
-                                                <a class="btn btn-primary pull-right" href="{% url 'app:deleteApp' app.pk %}">删除</a>
-                                                <a class="btn btn-primary pull-right" href="{% url 'app:editApp' app.pk %}">修改</a>
-                                                <a class="h3" href="{{ app.get_absolute_url }}">{{ app.name }}</a>
-                                                <span class="h4">下载量：{{ app.times }} / 分类：{{ app.category }}</span>
+                                                <a class="btn btn-primary pull-right" href="{% url 'game:deleteGame' game.pk %}">删除</a>
+                                                <a class="btn btn-primary pull-right" href="{% url 'game:editGame' game.pk %}">修改</a>
+                                                <a class="h3" href="{{ game.get_absolute_url }}">{{ game.name }}</a>
+                                                <span class="h4">下载量：{{ game.times }} / 分类：{{ game.category }}</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             {% empty %}
-                                <h3>暂无APP</h3>
+                                <h3>暂无游戏</h3>
                             {% endfor %}
                         </div>
                     </div>
