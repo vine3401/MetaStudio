@@ -28,6 +28,7 @@
                                     {{ form.title.help_text|safe }}
                                 {% endif %}
                             </div>
+                            {% if categories %}
                             <div class="form-group">
                                 <label for="category" class="">分类(必填)</label>
                                 <select class="" id="category" name="category" required>
@@ -40,6 +41,7 @@
                                     {{ form.category.help_text|safe }}
                                 {% endif %}
                             </div>
+                            {% endif %}
                             <div class="form-group">
                                 <label for="body" class="sr-only"></label>
                                 <input  name="inTro" id="body" class="form-control" placeholder="简介(必填)" required/>
@@ -50,7 +52,7 @@
                             </div>
                             <input type="hidden" value="{{ user.pk }}" name="author">
                             <div class="form-group">
-                                <label for="app">APP(必填)</label>
+                                <label for="app">Game(必填)</label>
                                 <input type="file" name="app" id="app" required/>
                             </div>
                             <div class="form-group">

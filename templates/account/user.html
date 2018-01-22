@@ -16,7 +16,6 @@
                     </button>
                     <img class="img-rounded" src="{{ user.headphoto.url }}" width="40px" style="margin-top: 10px"/>
                 </div>
-{#               TODO: finish the user page #}
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li><a href="{% url 'blog:write' %}" ><span class="h3">写博客</span></a></li>
@@ -73,7 +72,7 @@
                             {% endfor %}
                         </div>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="app">
+                    <div role="tabpanel" class="tab-pane" id="game">
                         <div class="row row-bottom-padded-md">
                             {% for app in apps %}
                                 <div class="col-padding animate-box" data-animate-effect="fadeInLeft">
