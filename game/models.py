@@ -28,7 +28,7 @@ class Game(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('app:appInfo', kwargs={'pk': self.pk})
+        return reverse('game:gameInfo', kwargs={'pk': self.pk})
 
     def increase_times(self):
         self.times += 1

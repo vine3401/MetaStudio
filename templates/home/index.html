@@ -11,7 +11,7 @@
 			<aside id="fh5co-hero" class="js-fullheight">
 				<div class="flexslider js-fullheight">
 					<ul class="slides">
-                    {% for app in apps %}
+                    {% for game in games %}
 				   	<li style="background-image: url({{ game.foreImg.url }});">
 				   		<div class="overlay"></div>
 				   		<div class="container-fluid">
@@ -23,10 +23,10 @@
                                         <p>
                                             <a class="btn btn-primary btn-demo popup-vimeo" href="{{ game.game.url }}" title="点击下载">
                                                 <i class="icon-arrow-down3"></i>
-                                                DownLoad
+                                                点击下载
                                             </a>
                                             <a class="btn btn-primary btn-learn" href="{{ game.get_absolute_url }}" title="了解更多">
-                                                learn more<i class="icon-arrow-right3"></i>
+                                                了解更多<i class="icon-arrow-right3"></i>
                                             </a>
                                         </p>
 					   				</div>

@@ -10,7 +10,7 @@ def index(request):
     games = Game.objects.all().order_by("-createTime")[:3]
     context = {
         'posts': posts,
-        'game': games,
+        'games': games,
     }
     return render(request, 'home/index.html', context = context)
 
