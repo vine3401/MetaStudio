@@ -3,13 +3,13 @@
 {% block title %}
     Game——META STUDIO
 {% endblock title %}
-{% block narApp %}
+{% block narGame %}
     fh5co-active
-{% endblock narApp %}
+{% endblock narGame %}
     {% block body %}
 		<div id="fh5co-main">
 			<div class="fh5co-narrow-content">
-                <a class="btn btn-primary pull-right" href="{% url 'game:uploadGame' %}">上传APP</a>
+                <a class="btn btn-primary pull-right" href="{% url 'game:uploadGame' %}">上传游戏</a>
                 {% for cate,games in gameList %}
 				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">{{ cate.name }}<small class="badge">{{ cate.app_set.count }}</small></h2>
 				<div class="row row-bottom-padded-md">
@@ -23,11 +23,11 @@
 						</a>
 					</div>
                     {% empty %}
-                        暂无游戏，敬请期待
+                        该目录下暂无游戏，敬请期待
                     {% endfor %}
 				</div>
                 {% empty %}
-                    暂无游戏，敬请期待
+                    暂无游戏目录，敬请期待
                 {% endfor %}
 			</div>
 		</div>

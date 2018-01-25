@@ -15,7 +15,7 @@ def portfllio(request):
     for cate in categories:
         games = Game.objects.filter(category = cate.pk).order_by("-createTime")
         temp = (cate,games)
-        gameList.gameend(temp)
+        gameList.append(temp)
 
     return render(request, 'home/portfolio.html', context={'gameList': gameList})
 
