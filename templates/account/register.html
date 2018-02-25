@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}
+    登陆/注册
+{% endblock title %}
+{% block narlog %}
+    fh5co-active
+{% endblock narlog %}
+{% block body %}
+    <div id="fh5co-main">
+			<div class="fh5co-narrow-content">
+				<div class="panel panel-default">
+                    <div class="panel-heading">登陆/注册</div>
+                    <div class="panel-body">
+                        <form action="{% url 'account:register' %}" method="POST">
+                            {% csrf_token %}
+                            {{ form.non_field_errors }}
+                             <div class="form-group">
+                                 <label for="username" class="sr-only">账户</label>
+                                 <input type="text" name="username" id="username" placeholder="账户" class="form-control" required>
+                                 {{ form.username.errors }}
+                                 {% if form.username.help_text %}
+                                     {{ form.username.help_text|safe }}
+                                 {% endif %}
+                             </div>
+                            <div class="form-group">
+                                <label for="email" class="sr-only"></label>
+                                <input type="email" id="email" name="email" placeholder="请输入邮箱" class="form-control" required>
+                                {{ form.email.errors }}
+                                {% if form.email.help_text %}
+                                    {{ form.email.help_text|safe }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="password1" class="sr-only">密码</label>
+                                <input type="password" name="password1" id="password1" placeholder="密码" class="form-control" required>
+                                {{ form.password1.errors }}
+                                {% if form.password1.help_text %}
+                                    {{ form.password1.help_text|safe }}
+                                {% endif %}
+                             </div>
+                            <div class="form-group">
+                                <label for="password2" class="sr-only">确认密码</label>
+                                <input type="password" name="password2" id="password2" placeholder="确认密码" class="form-control" required>
+                                {{ form.password2.errors }}
+                                {% if form.password2.help_text %}
+                                    {{ form.password2.help_text|safe }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default pull-right">注册</button>
+                            </div>
+                            <input type="hidden" name="next" value="{{ next|escape }}" />
+                        </form>
+                        <div>
+                            <a href="{% url 'login' %}">已有账户登陆</a>
+                        </div>
+                    </div>
+                </div>
+			</div>
+		</div>
+{% endblock %}

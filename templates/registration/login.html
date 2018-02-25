@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}
+    登陆/注册
+{% endblock title %}
+{% block narlog %}
+    fh5co-active
+{% endblock narlog %}
+{% block body %}
+		<div id="fh5co-main">
+			<div class="fh5co-narrow-content">
+				<div class="panel panel-default">
+                    <div class="panel-heading">登陆/注册</div>
+                    <div class="panel-body">
+                        <form action="{% url 'login' %}" method="POST">
+                            {% csrf_token %}
+                            {{ form.non_field_errors }}
+                             <div class="form-group">
+                                 <label for="username" class="sr-only">账户</label>
+                                 <input type="text" name="username" id="username" placeholder="账户" class="form-control" required>
+                                 {{ form.username.errors }}
+                                 {% if form.username.help_text %}
+                                     <p>{{ form.username.help_text|safe }}</p>
+                                 {% endif %}
+                             </div>
+                            <div class="form-group">
+                                <label for="password" class="sr-only">密码</label>
+                                <input type="password" name="password" id="password" placeholder="密码" class="form-control" required>
+                                {{ form.password.errors }}
+                                {% if form.password.help_text %}
+                                    <p>{{ form.password.help_text|safe }}</p>
+                                {% endif %}
+                             </div>
+                            <div class="form-group">
+                                <div class="checkbox-inline">
+                                    <label><input type="checkbox" value="remember" name="remember">记住密码</label>
+                                </div>
+                                <button type="submit" class="btn btn-default pull-right" value="登陆">登陆</button>
+                            </div>
+                            <input type="hidden" name="next" value="{{ next|escape }}" />
+                        </form>
+                        <div>
+                            <span>没有账户？<a href="{% url 'account:register' %}?next={{ request.path }}">注册</a></span>
+                            <span><a href="{% url 'password_reset' %}">忘记密码</a></span>
+                        </div>
+                    </div>
+                </div>
+			</div>
+		</div>
+{% endblock %}

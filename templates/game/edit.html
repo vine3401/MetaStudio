@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+    修改游戏——META STUDIO
+{% endblock title %}
+{% block body %}
+		<div id="fh5co-main">
+			<div class="fh5co-narrow-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">游戏上传</div>
+                    <div class="panel-body">
+                        <form class="form" action="{% url 'game:editGame' game.pk %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form.non_field_errors }}
+                            <div class="form-group">
+                                <label for="title" class="sr-only">游戏名称(必填)</label>
+                                <input type="text" name="name" id="title" value="{{ game.name }}" placeholder="游戏名称(必填)" class="form-control" maxlength="100" required>
+                                {{ form.title.errors }}
+                                {% if form.title.help_text %}
+                                    {{ form.title.help_text|safe }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="version" class="sr-only">游戏版本(必填)</label>
+                                <input type="text" name="version" id="version" value="{{ game.version }}" placeholder="版本(必填)" class="form-control" maxlength="100" required>
+                                {{ form.title.errors }}
+                                {% if form.title.help_text %}
+                                    {{ form.title.help_text|safe }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="category" class="">游戏分类(必填)</label>
+                                <select class="" id="category" name="category" required>
+                                  {% for cate in categories %}
+                                      <option value="{{ cate.pk }}">{{ cate.name }}</option>
+                                  {% endfor %}
+                                </select>
+                                {{ form.category.errors }}
+                                {% if form.category.help_text %}
+                                    {{ form.category.help_text|safe }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="body" class="sr-only"></label>
+                                <input  name="inTro" id="body" value="{{ game.inTro }}" class="form-control" placeholder="简介(必填)" required/>
+                                {{ form.inTro.errors }}
+                                {% if form.inTro.help_text %}
+                                    {{ form.inTro.help_text|safe }}
+                                {% endif %}
+                            </div>
+                            <input type="hidden" value="{{ user.pk }}" name="author">
+                            <div class="form-group">
+                                <label for="game">游戏(必填)&nbsp;&nbsp;</label>
+                                <span class="h4">目前：{{ game.game }}</span>
+                                <input type="file" name="game" id="game"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="icon" class="">游戏图标&nbsp;&nbsp;</label>
+                                <span class="h4">目前：{{ game.icon }}</span>
+                                <input type="file" name="icon" id="icon" value="{{ game.icon }}"/>
+                                <label for="foreImg" class="">游戏展示图片&nbsp;&nbsp;</label>
+                                <span class="h4">目前：{{ game.foreImg }}</span>
+                                <input type="file" name="foreImg" id="foreImg" value="{{ game.foreImg }}"/>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default form-control">确认修改</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+			</div>
+		</div>
+{% endblock body %}

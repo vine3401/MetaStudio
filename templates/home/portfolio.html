@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+    Game——META STUDIO
+{% endblock title %}
+{% block narGame %}
+    fh5co-active
+{% endblock narGame %}
+    {% block body %}
+		<div id="fh5co-main">
+			<div class="fh5co-narrow-content">
+                <a class="btn btn-primary pull-right" href="{% url 'game:uploadGame' %}">上传游戏</a>
+                {% for cate,games in gameList %}
+				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">{{ cate.name }}<small class="badge">{{ cate.game_set.count }}</small></h2>
+				<div class="row row-bottom-padded-md">
+                    {% for game in games %}
+					<div class="col-md-3 col-sm-6 col-padding text-center animate-box">
+						<a href="{{ game.get_absolute_url }}" class="work image-popup" style="background-image: url({{ game.foreImg.url }});">
+							<div class="desc">
+                                <h3>{{ game.name }}</h3>
+								<span>{{ game.times }} 下载</span>
+							</div>
+						</a>
+					</div>
+                    {% empty %}
+                        该目录下暂无游戏，敬请期待
+                    {% endfor %}
+				</div>
+                {% empty %}
+                    暂无游戏目录，敬请期待
+                {% endfor %}
+			</div>
+		</div>
+    {% endblock body %}
