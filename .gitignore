@@ -46,9 +46,9 @@ docs/_build/
 # PyBuilder
 target/
 
-media/
 
 .vscode/
 .idea/
 db.*
 venv/
+migrations/
