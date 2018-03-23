@@ -79,18 +79,18 @@ WSGI_APPLICATION = 'MetaStudio.wsgi.application'
 
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'ms',
-    #     'USER': 'root',
-    #     'PASSWORD': '123456',
-    #     'HOST': '',
-    #     'PORT': '',
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ms',
+        'USER': 'root',
+        'PASSWORD': 'adminadmin',
+        'HOST': '',
+        'PORT': '',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
 }
 
 
