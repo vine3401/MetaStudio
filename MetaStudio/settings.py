@@ -25,7 +25,8 @@ SECRET_KEY = '=n4p(%m2r10*45xauv)!2uqoop3mp*5f6$8_1bez89qxszs^nn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost ', '.metastudio.top']
+
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost ', '120.79.137.249' ,'.metastudio.top']
 
 
 # Application definition

@@ -52,3 +52,4 @@ target/
 db.*
 venv/
 migrations/
+static/
