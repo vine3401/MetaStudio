@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+    博客详情——META STUDIO
+{% endblock title %}
+    {% block body %}
+		<div id="fh5co-main">
+			<div class="fh5co-narrow-content">
+{#				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Recent blog</h2>#}
+				<div class="row row-bottom-padded-md">
+                    <div class="col-md-12 col-sm-12 col-padding animate-box" data-animate-effect="fadeInLeft">
+						<div class="blog-entry">
+							<div class="desc">
+								<h3>{{ post.title }}</h3>
+								<span><small>by {{ post.author }} </small> / <small> {{ post.category }} </small> / <small> <i class="icon-comment"></i> 评论{{ post.blogcomment_set.count }}</small> / <small>阅读{{ post.views }}</small>&nbsp;&nbsp;<small>{{ post.createTime }}</small></span>
+								<p>{{ post.body|safe }}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">发表评论</div>
+                    <div class="panel-body">
+                        {% if user.is_authenticated %}
+                            <form method="post" action="{% url 'comment:post_comment' post.pk %}">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 form-group">
+                                        <label for="text" class="sr-only">请输入</label>
+                                        <textarea placeholder="请输入" name="text" id="text" rows="4" class="form-control"></textarea>
+                                        {{ form.text.errors }}
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 form-group">
+                                        <input  type="submit" value="发送" class="form-control btn btn-default">
+                                    </div>
+                                </div>
+                            </form>
+                        {% else %}
+                            <p class="text-center">
+                                <a href="{% url 'account:login' %}?next={{ request.path }}">登陆</a>/
+                                <a href="{% url 'account:register' %}?next={{ request.path }}">注册</a>后评论
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">评论列表<small class="badge">{{ post.blogcomment_set.count }}</small></div>
+                    <div class="panel-body">
+                        <ul class="media-list">
+                            {% for comment,subComment in comments %}
+                            <li class="media">
+                                <div class="media-left">
+                                  <a href="#">
+                                    <img class="media-object img-rounded" src="{{ comment.user.headphoto.url }}" width="50" height="50" alt="...">
+                                  </a>
+                                </div>
+                                <div class="media-body">
+                                    <span class="media-heading h4">{{ comment.user }}</span>
+                                    <time>{{ comment.createTime }}</time>
+                                    <p>
+                                        {{ comment.text }}
+                                        <button data-toggle="collapse" data-target="#comment{{ comment.pk }}" class="pull-right"
+                                                aria-expanded="false" aria-controls="comment{{ comment.pk }}">回复</button>
+                                    </p>
+                                    <div>
+                                        <div class="collapse" id="comment{{ comment.pk }}">
+                                          <div class="well">
+                                              <form method="post" action="{% url 'comment:sub_post_comment' post.pk comment.pk%}">
+                                                {% csrf_token %}
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 form-group">
+                                                        <label for="Text{{ comment.pk }}" class="sr-only">请输入</label>
+                                                        <textarea placeholder="请输入" name="text" id="Text{{ comment.pk }}" class="form-control"></textarea>
+                                                        {{ subForm.text.errors }}
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 form-group">
+                                                        <label for="User{{ comment.pk }}" class="sr-only">User</label>
+                                                        <input type="hidden" name="user" id="User{{ comment.pk }}" class="form-control" value="{{ user.pk }}">
+                                                        {{ subForm.user.errors }}
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 form-group">
+                                                        <label for="ToUser{{ comment.pk }}" class="sr-only">toUser</label>
+                                                        <input type="hidden" name="toUser" id="ToUser{{ comment.pk }}" class="form-control" value="{{ comment.user.pk }}">
+                                                        {{ subForm.toUser.errors }}
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 form-group">
+                                                        <input  type="submit" value="发送" class="pull-right btn btn-default">
+                                                    </div>
+                                                </div>
+                                            </form>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <ul class="media-list">
+                                        {% for sub in subComment %}
+                                        <li class="media">
+                                            <div class="media-left">
+                                              <a href="#">
+                                                <img class="media-object img-rounded" src="{{ sub.user.headphoto.url }}" width="40" height="40">
+                                              </a>
+                                            </div>
+                                            <div class="media-body">
+                                                <span class="media-heading h4">{{ sub.user }}回复{{ sub.toUser }}</span>
+                                                <time>{{ sub.createTime }}</time>
+                                                <p>
+                                                    {{ sub.text }}
+                                                    <button data-toggle="collapse" data-target="#collapse{{ sub.pk }}" class="pull-right"
+                                                                    aria-expanded="false" aria-controls="collapse{{ sub.pk }}">回复</button>
+                                                </p>
+                                                <div>
+                                                    <div class="collapse" id="collapse{{ sub.pk }}">
+                                                      <div class="well">
+                                                          <form method="post" action="{% url 'comment:sub_post_comment' post.pk comment.pk %}">
+                                                            {% csrf_token %}
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-sm-12 form-group">
+                                                                    <label for="text{{ sub.pk }}" class="sr-only">请输入</label>
+                                                                    <textarea placeholder="请输入" name="text" id="text{{ sub.pk }}" class="form-control"></textarea>
+                                                                    {{ subForm.text.errors }}
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-12 form-group">
+                                                                    <label for="user{{ sub.pk }}" class="sr-only">User</label>
+                                                                    <input type="hidden" name="user" id="user{{ sub.pk }}" class="form-control" value="{{ user.pk }}">
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-12 form-group">
+                                                                    <label for="toUser{{ sub.pk }}" class="sr-only">ToUser</label>
+                                                                    <input type="hidden" name="toUser" id="toUser{{ sub.pk }}" class="form-control" value="{{ sub.parentComment.user.pk }}">
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-12 form-group">
+                                                                    <input  type="submit" value="发送" class="btn btn-default pull-right">
+                                                                </div>
+                                                            </div>
+                                                          </form>
+                                                      </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </li>
+                            {% empty %}
+                                暂无评论
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+			</div>
+		</div>
+    {% endblock body %}

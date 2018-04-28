@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %} {{ user.username }} {% endblock %}
+{% block narLog %} fh5co-active {% endblock %}
+{% block body %}
+    <div id="fh5co-main">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <img class="img-rounded" src="{{ user.headphoto.url }}" width="40px" style="margin-top: 10px"/>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="{% url 'blog:write' %}" ><span class="h3">写博客</span></a></li>
+                        <li><a href="{% url 'game:uploadGame' %}" ><span class="h3">发布游戏</span></a></li>
+{#                        <li><a href="#" ><span class="h3">消息</span><small class="badge">3</small></a></li>#}
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false"><span class="h3">{{ user.username }}</span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'account:infoChange' %}">修改资料</a></li>
+                                <li><a href="{% url 'password_change' %}">修改密码</a></li>
+{#                                <li><a href="#">设置</a></li>#}
+                                <li role="separator" class="divider"></li>
+                                <li><a href="{% url 'logout' %}">退出登录</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="fh5co-narrow-content">
+            <div>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#blog" aria-controls="blog" role="tab" data-toggle="tab">我的博客</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#game" aria-controls="game" role="tab" data-toggle="tab">我的游戏</a>
+                    </li>
+{#                    <li role="presentation">#}
+{#                        <a href="#extra" aria-controls="extra" role="tab" data-toggle="tab">我的收藏</a>#}
+{#                    </li>#}
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="blog">
+                        <div class="row row-bottom-padded-md">
+                            {% for post in posts %}
+                                <div class="col-padding animate-box" data-animate-effect="fadeInLeft">
+                                    <div class="blog-entry">
+                                        <div class="desc">
+                                            <a class="btn btn-primary pull-right" href="{% url 'blog:delete' post.pk %}">删除</a>
+                                            <a class="btn btn-primary pull-right" href="{% url 'blog:edit' post.pk %}">修改</a>
+                                            <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+                                            <span class="h4"><small> {{ post.category }} </small> / <small> <i
+                                                    class="icon-comment"></i> 评论{{ post.blogcomment_set.count }}</small> / <small>阅读{{ post.views }}</small>&nbsp;&nbsp;<small>{{ post.createTime }}</small></span>
+                                            <p>{{ post.body|truncatechars:54 }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% empty %}
+                                <h4>&nbsp;&nbsp;&nbsp;&nbsp;暂无博客</h4>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="game">
+                        <div class="row row-bottom-padded-md">
+                            {% for game in games %}
+                                <div class="col-padding animate-box" data-animate-effect="fadeInLeft">
+                                    <div class="blog-entry">
+                                        <div class="desc row">
+                                            <div class="col-md-1">
+                                                <img class="img-rounded" src="{{ game.icon.url }}" width="80px" height="80px">
+                                            </div>
+                                            <div style="margin-left:140px;">
+                                                <a class="btn btn-primary pull-right" href="{% url 'game:deleteGame' game.pk %}">删除</a>
+                                                <a class="btn btn-primary pull-right" href="{% url 'game:editGame' game.pk %}">修改</a>
+                                                <a class="h3" href="{{ game.get_absolute_url }}">{{ game.name }}</a>
+                                                <span class="h4">下载量：{{ game.times }} / 分类：{{ game.category }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% empty %}
+                                <h4>&nbsp;&nbsp;&nbsp;&nbsp;暂无游戏</h4>
+                            {% endfor %}
+                        </div>
+                    </div>
+{#                    <div role="tabpanel" class="tab-pane" id="extra">我的收藏</div>#}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

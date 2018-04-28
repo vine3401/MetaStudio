@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+    写博客
+{% endblock title %}
+{% block narBlog %}
+    fh5co-active
+{% endblock narBlog %}
+{% block body %}
+    <div id="fh5co-main">
+        <div class="fh5co-narrow-content">
+            <form action="{% url 'blog:write' %}" method="POST">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="form-group">
+                    <label for="title" class="sr-only">标题</label>
+                    <input type="text" name="title" id="title" placeholder="标题" class="form-control" maxlength="100" required>
+                    {{ form.title.errors }}
+                    {% if form.title.help_text %}
+                        {{ form.title.help_text|safe }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="category" class="">目录：</label>
+                    <select class="" id="category" name="category" required>
+                      {% for cate in categories %}
+                          <option value="{{ cate.pk }}">{{ cate.name }}</option>
+                      {% endfor %}
+                    </select>
+                    <label for="tag" class="">标签：</label>
+                    <select class="" id="tag" name="tag" multiple required>
+                      {% for tag in tags %}
+                          <option value="{{ tag.pk }}">{{ tag.name }}</option>
+                      {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="body" class="sr-only">内容</label>
+                    <textarea  name="body" id="body" class=" form-control" cols="10" rows="20" required></textarea>
+                </div>
+                <input type="hidden" value="{{ user.pk }}" name="author">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default form-control">发表博客</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock body %}
